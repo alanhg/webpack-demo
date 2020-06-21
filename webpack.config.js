@@ -1,9 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
-//用于插入html模板
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-//清除输出目录，免得每次手动删除
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -15,15 +13,15 @@ module.exports = {
     },
     module: {},
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'index.html',
-        }),
-        //持久化moduleId，主要是为了之后研究加载代码好看一点。
-        new webpack.HashedModuleIdsPlugin(),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'manifest',
         })
-    ]
+    ],
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 9000
+    }
 };
