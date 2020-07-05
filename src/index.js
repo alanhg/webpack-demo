@@ -2,11 +2,11 @@ import bar from './bar';
 
 bar();
 
-function asyncLoad() {
-    import('./async-job').then(module => {
-        const func = module.default;
-        func();
-    });
+function asyncLoad(e) {
+    import(/* webpackChunkName: "async-job" */'./async-job');
 }
 
-document.getElementById('root').innerHTML = `<button onclick="()=>asyncLoad()">click me</button>`
+var button = document.createElement("button");
+button.innerHTML = 'click me';
+button.addEventListener('click', asyncLoad);
+document.getElementById('root').appendChild(button);
