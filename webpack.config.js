@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const MyPlugin = require('./plugins/my-example-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -33,6 +34,7 @@ module.exports = {
                 {from: 'src/xhr-content.js'}
             ],
         }),
+        new MyPlugin(),
     ],
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
