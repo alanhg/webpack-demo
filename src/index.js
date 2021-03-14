@@ -11,7 +11,7 @@ function asyncLoad(e) {
     import(/* webpackChunkName: "async-job",webpackPreload: true  */'xlsx');
 }
 
-const button = document.createElement("button");
+const button =  document.createElement("button");
 button.innerHTML = 'dynamic import';
 button.addEventListener('click', asyncLoad);
 document.getElementById('root').appendChild(button);
