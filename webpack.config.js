@@ -20,6 +20,14 @@ module.exports = {
                 test: /\.txt$/i,
                 use: 'raw-loader',
             },
+            {
+                test: /\.js$/,
+                use: [
+                    {
+                        loader: path.resolve('loader/my-example-webpack-loade.js')
+                    },
+                ],
+            },
         ]
     },
     plugins: [
@@ -40,5 +48,6 @@ module.exports = {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
         port: 9000
-    }
+    },
+
 };
