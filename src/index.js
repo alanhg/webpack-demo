@@ -1,38 +1,9 @@
-import bar from './bar';
-
-bar();
-
-
-/**
- * test dynamic import
- * @param e
- */
-function asyncLoad(e) {
-    import(/* webpackChunkName: "async-job",webpackPreload: true  */'xlsx');
+let isEnUs = process.env.LANG === 'en_US.UTF-8';
+let isCN = process.env.REGION === 'CN';
+// const {LANG} = require('./conf.json');
+// let b = LANG === 'en_US.UTF-8';
+if (isEnUs && isCN) {
+  console.log('true');
+} else {
+  console.log('false')
 }
-
-const button =  document.createElement("button");
-button.innerHTML = 'dynamic import';
-button.addEventListener('click', asyncLoad);
-document.getElementById('root').appendChild(button);
-
-/**
- * test xhr to get js file
- * @param e
- */
-function xhrLoad(e) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', './xhr-content.js', true);
-    xhr.send();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            eval(xhr.responseText);
-        }
-    }
-}
-
-var button2 = document.createElement("button");
-button2.innerHTML = 'xhr get js';
-button2.addEventListener('click', xhrLoad);
-
-document.getElementById('root').appendChild(button2);

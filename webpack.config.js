@@ -2,7 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const MyPlugin = require('./plugins/my-example-webpack-plugin');
+const {DefinePlugin} = require("webpack");
+// const MyPlugin = require('./plugins/my-example-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -20,14 +21,14 @@ module.exports = {
                 test: /\.txt$/i,
                 use: 'raw-loader',
             },
-            {
-                test: /\.js$/,
-                use: [
-                    {
-                        loader: path.resolve('loader/my-example-webpack-loade.js')
-                    },
-                ],
-            },
+            // {
+            //     test: /\.js$/,
+            //     use: [
+            //         {
+            //             loader: path.resolve('loader/my-example-webpack-loade.js')
+            //         },
+            //     ],
+            // },
         ]
     },
     plugins: [
@@ -42,7 +43,10 @@ module.exports = {
                 {from: 'src/xhr-content.js'}
             ],
         }),
-        new MyPlugin(),
+        new DefinePlugin({
+            'process.env': JSON.stringify(require('./src/conf.json')),
+        })
+        // new MyPlugin(),
     ],
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
